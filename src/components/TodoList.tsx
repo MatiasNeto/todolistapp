@@ -1,12 +1,10 @@
-import React from 'react';
-import { TodoModel } from '../models/Todo-model';
+import { useContext } from 'react';
+import { TodoContext } from '../contexts/TodoContext';
+import { TodoContextType } from '../contexts/TodoContextType';
 import TodoListItem from './TodoListItem';
 
 const TodoList = () => {
-    const todos: TodoModel[] = [
-        { id: 1, title: "Lear React", done: true },
-        { id: 2, title: "Learn React Native", done: false },
-    ];
+    const { todos } = useContext<TodoContextType>(TodoContext);
     return (
         <div className="container mt-3">
             <div className="card">

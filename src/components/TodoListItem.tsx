@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoContext } from "../contexts/TodoContext";
+import { TodoContextType } from "../contexts/TodoContextType";
 import { TodoModel } from "../models/Todo-model";
 
 interface TodoListItemProps {
     todo: TodoModel;
 }
 
-const onRemove = (todo: TodoModel) => {
-    console.log(todo);
-
-}
-
-const handleChange = (event: any) => {
-    console.log("Mudar " + event.target.id);
-}
 
 const TodoListItem = (props: TodoListItemProps) => {
+
+    const onRemove = (todo: TodoModel) => {
+        removeTodo(todo);
+    }
+
+    const handleChange = (event: any) => {
+        toggle(props.todo);
+    }
+    const { removeTodo, toggle } = useContext<TodoContextType>(TodoContext);
     return (
         <tr>
             <td>
