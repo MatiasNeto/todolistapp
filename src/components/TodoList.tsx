@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { TodoContext } from '../contexts/TodoContext';
 import { TodoContextType } from '../contexts/TodoContextType';
 import TodoListItem from './TodoListItem';
@@ -10,7 +11,7 @@ const TodoList = () => {
             <div className="card">
                 <h5 className="card-header">Task List</h5>
                 <div className="card-body">
-                    <table className="table table-striped">
+                    <table className="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -26,7 +27,9 @@ const TodoList = () => {
                             )}
                         </tbody>
                     </table>
-                    <button type="button" className="btn btn-primary">Add Task</button>
+                    <Link to="/addTodo">
+                        <button type="button" className="btn btn-primary">Add Task</button>
+                    </Link>
                 </div>
             </div>
         </div>

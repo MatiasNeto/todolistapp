@@ -7,20 +7,19 @@ export const TodoContext = createContext<TodoContextType>({
     todos: [],
     addTodo: () => { },
     removeTodo: () => { },
-    toggle: () => { }
+    toggle: () => { },
+    editTodo: () => { }
 });
 
 const TodoProvider = (props: any) => {
-    const [todos, setTodos] = useState<TodoModel[]>(
-        [{ id: 1, title: "Learn React", done: false }]
-    );
+    const [todos, setTodos] = useState<TodoModel[]>(get);
 
     useEffect(() => {
         save(todos);
     }, [todos])
 
-    const addTodo = (title: string, done: boolean) => {
-        const todo: TodoModel = { id: todos.length + 1, title: title, done: done }
+    const addTodo = (title: string, doneStatus: boolean) => {
+        const todo: TodoModel = { id: todos.length + 1, title: title, done: doneStatus }
         setTodos([...todos, todo]);
     };
 
@@ -35,8 +34,12 @@ const TodoProvider = (props: any) => {
         setTodos([...todos]);
     };
 
+    const editTodo = (todo: TodoModel) => {
+        console.log(todo)
+    }
+
     return (
-        <TodoContext.Provider value={{ todos, addTodo, removeTodo, toggle }}>
+        <TodoContext.Provider value={{ todos, addTodo, removeTodo, toggle, editTodo }}>
             {props.children}
         </TodoContext.Provider>
     );

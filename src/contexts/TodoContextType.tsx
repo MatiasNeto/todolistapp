@@ -6,4 +6,5 @@ export interface TodoContextType {
     addTodo(title: string, done: boolean): void;
     removeTodo(todo: TodoModel): void;
     toggle(todo: TodoModel): void;
+    editTodo(todo: TodoModel): void;
 }

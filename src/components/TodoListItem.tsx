@@ -17,7 +17,11 @@ const TodoListItem = (props: TodoListItemProps) => {
     const handleChange = (event: any) => {
         toggle(props.todo);
     }
-    const { removeTodo, toggle } = useContext<TodoContextType>(TodoContext);
+
+    const onEdit = (todo: TodoModel) => {
+        editTodo(props.todo)
+    }
+    const { removeTodo, toggle, editTodo } = useContext<TodoContextType>(TodoContext);
     return (
         <tr>
             <td>
@@ -37,7 +41,7 @@ const TodoListItem = (props: TodoListItemProps) => {
                 {props.todo.done}
             </td>
             <td>
-                <i className="far fa-edit p-1"></i>
+                <i className="far fa-edit p-1" onClick={() => onEdit(props.todo)}></i>
                 <i className="far fa-trash-alt p-1" onClick={() => onRemove(props.todo)}></i>
             </td>
         </tr >
