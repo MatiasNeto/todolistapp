@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
 import { TodoModel } from "../models/Todo-model";
-import { get, save } from "../Services/TodoService";
+import { get, getLastId, save, setNewId } from "../Services/TodoService";
 import { TodoContextType } from "./TodoContextType";
 
 export const TodoContext = createContext<TodoContextType>({
     todos: [],
+    idTask: 0,
     addTodo: () => { },
     removeTodo: () => { },
     toggle: () => { },
@@ -13,14 +14,17 @@ export const TodoContext = createContext<TodoContextType>({
 
 const TodoProvider = (props: any) => {
     const [todos, setTodos] = useState<TodoModel[]>(get);
+    const [idTask, setIdTask] = useState<number>(getLastId);
 
     useEffect(() => {
         save(todos);
-    }, [todos])
+        setNewId(idTask)
+    }, [todos, idTask])
 
     const addTodo = (title: string, doneStatus: boolean) => {
-        const todo: TodoModel = { id: todos.length + 1, title: title, done: doneStatus }
+        const todo: TodoModel = { id: idTask, title: title, done: doneStatus }
         setTodos([...todos, todo]);
+        setIdTask(idTask + 1)
     };
 
     const removeTodo = (todo: TodoModel) => {
@@ -39,7 +43,7 @@ const TodoProvider = (props: any) => {
     }
 
     return (
-        <TodoContext.Provider value={{ todos, addTodo, removeTodo, toggle, editTodo }}>
+        <TodoContext.Provider value={{ todos, idTask, addTodo, removeTodo, toggle, editTodo }}>
             {props.children}
         </TodoContext.Provider>
     );
